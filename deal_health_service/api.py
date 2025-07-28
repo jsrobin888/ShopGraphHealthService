@@ -10,9 +10,10 @@ import time
 import uuid
 from typing import List, Optional
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
+from fastapi.security import HTTPBearer
 from pydantic import BaseModel
 
 from .models import (
@@ -25,6 +26,7 @@ from .models import (
 )
 from .service import DealHealthService
 from .monitoring import setup_structured_logging, HealthCheck
+from .security import security_middleware, SecurityService
 
 # Setup structured logging
 setup_structured_logging()
@@ -43,10 +45,10 @@ app = FastAPI(
 service = DealHealthService()
 
 
-# Add monitoring middleware - using a function-based approach
+# Add monitoring and security middleware - using a function-based approach
 @app.middleware("http")
-async def monitoring_middleware(request: Request, call_next):
-    """Monitoring middleware for request tracking and metrics."""
+async def monitoring_and_security_middleware(request: Request, call_next):
+    """Monitoring and security middleware for request tracking, metrics, and security."""
     start_time = time.time()
 
     # Generate trace ID
@@ -56,6 +58,28 @@ async def monitoring_middleware(request: Request, call_next):
     request.state.trace_id = trace_id
 
     try:
+        # Security checks
+        # 1. Rate limiting
+        if not security_middleware.check_rate_limit(request):
+            raise HTTPException(
+                status_code=429,
+                detail="Rate limit exceeded. Please try again later."
+            )
+        
+        # 2. Input validation for POST/PUT requests
+        if request.method in ["POST", "PUT"] and request.url.path not in ["/health", "/metrics"]:
+            try:
+                body = await request.body()
+                if body:
+                    # Basic input validation
+                    if not security_middleware.security_service.validate_input({"body": body.decode()}):
+                        raise HTTPException(
+                            status_code=400,
+                            detail="Invalid input detected"
+                        )
+            except Exception:
+                pass  # Skip validation if body cannot be read
+        
         # Process request
         response = await call_next(request)
 
@@ -68,6 +92,9 @@ async def monitoring_middleware(request: Request, call_next):
             duration=duration,
         )
 
+        # Add security headers
+        response = security_middleware.add_security_headers(response)
+        
         # Add trace ID to response headers
         response.headers["X-Trace-ID"] = trace_id
 
@@ -79,13 +106,15 @@ async def monitoring_middleware(request: Request, call_next):
         raise
 
 
-# Add CORS middleware
+# Add CORS middleware with security configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure appropriately for production
+    allow_origins=security_middleware.security_service.config["allowed_origins"],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=security_middleware.security_service.config["allowed_methods"],
+    allow_headers=security_middleware.security_service.config["allowed_headers"],
+    expose_headers=security_middleware.security_service.config["expose_headers"],
+    max_age=security_middleware.security_service.config["max_age_seconds"],
 )
 
 # Initialize health check

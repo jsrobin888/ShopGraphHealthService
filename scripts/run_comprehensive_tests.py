@@ -16,6 +16,7 @@ Usage:
 
 import subprocess
 import sys
+import os
 import time
 import json
 from pathlib import Path
@@ -306,10 +307,14 @@ def main():
     """Main function to run comprehensive tests."""
     print_header("DealHealthService Comprehensive Test Runner")
     
-    # Check if we're in the right directory
-    if not Path("docker-compose.yml").exists():
+    # Check if we're in the right directory (scripts folder)
+    project_root = Path(__file__).parent.parent
+    if not (project_root / "docker-compose.yml").exists():
         print("❌ docker-compose.yml not found. Please run this script from the project root.")
         sys.exit(1)
+    
+    # Change to project root directory
+    os.chdir(project_root)
     
     # Step 1: Check Docker Compose status
     if not check_docker_compose_running():
