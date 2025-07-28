@@ -14,7 +14,8 @@ COPY pyproject.toml README.md ./
 
 # Install Python dependencies using pip
 RUN pip install --upgrade pip && \
-    pip install fastapi uvicorn pydantic sqlalchemy psycopg2-binary redis python-dotenv uvloop httptools structlog prometheus-client httpx openai anthropic google-cloud-pubsub google-auth
+    pip install -e . && \
+    pip install pytest pytest-asyncio pytest-cov httpx
 
 # Copy application code
 COPY . .

@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-07-28T05:59:11.043268",
+  "summary": {
+    "total_tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "success_rate": 100.0
+  },
+  "results": {
+    "Unit Tests": {
+      "success": true,
+      "output": "\u001b[1m============================= test session starts ==============================\u001b[0m\nplatform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0 -- /Library/Developer/CommandLineTools/usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /Users/niuniu/ShopGraphHealthService\nconfigfile: pyproject.toml\nplugins: anyio-4.9.0, asyncio-1.1.0, cov-6.2.1\nasyncio: mode=auto, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\n\u001b[1mcollecting ... \u001b[0mcollected 25 items\n\ntests/test_health_calculation_engine.py::TestHealthCalculationEngine::test_calculate_health_score_no_events \u001b[32mPASSED\u001b[0m\u001b[33m [  4%]\u001b[0m\ntests/test_health_calculation_engine.py::TestHealthCalculationEngine::test_calculate_health_score_single_automated_test_success \u001b[32mPASSED\u001b[0m\u001b[33m [  8%]\u001b[0m\ntests/test_health_calculation_engine.py::TestHealthCalculationEngine::test_calculate_health_score_single_automated_test_failure \u001b[32mPASSED\u001b[0m\u001b[33m [ 12%]\u001b[0m\ntests/test_health_calculation_engine.py::TestHe..."
+    },
+    "Basic Integration Tests": {
+      "success": true,
+      "output": "\u001b[1m============================= test session starts ==============================\u001b[0m\nplatform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0 -- /Library/Developer/CommandLineTools/usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /Users/niuniu/ShopGraphHealthService\nconfigfile: pyproject.toml\nplugins: anyio-4.9.0, asyncio-1.1.0, cov-6.2.1\nasyncio: mode=auto, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\n\u001b[1mcollecting ... \u001b[0mcollected 18 items\n\ntests/test_integration.py::TestIntegrationAPI::test_health_endpoint \u001b[32mPASSED\u001b[0m\u001b[33m [  5%]\u001b[0m\ntests/test_integration.py::TestIntegrationAPI::test_metrics_endpoint \u001b[32mPASSED\u001b[0m\u001b[33m [ 11%]\u001b[0m\ntests/test_integration.py::TestIntegrationAPI::test_queue_stats_endpoint \u001b[32mPASSED\u001b[0m\u001b[33m [ 16%]\u001b[0m\ntests/test_integration.py::TestIntegrationAPI::test_process_single_automated_test_event \u001b[32mPASSED\u001b[0m\u001b[33m [ 22%]\u001b[0m\ntests/test_integration.py::TestIntegrationAPI::test_process_single_community_veri..."
+    },
+    "Advanced Integration Tests": {
+      "success": true,
+      "output": "\u001b[1m============================= test session starts ==============================\u001b[0m\nplatform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0 -- /Library/Developer/CommandLineTools/usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /Users/niuniu/ShopGraphHealthService\nconfigfile: pyproject.toml\nplugins: anyio-4.9.0, asyncio-1.1.0, cov-6.2.1\nasyncio: mode=auto, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\n\u001b[1mcollecting ... \u001b[0mcollected 9 items\n\ntests/test_integration_advanced.py::TestAdvancedIntegration::test_health_score_evolution_over_time \u001b[32mPASSED\u001b[0m\u001b[33m [ 11%]\u001b[0m\ntests/test_integration_advanced.py::TestAdvancedIntegration::test_ai_processing_with_complex_tips \u001b[32mPASSED\u001b[0m\u001b[33m [ 22%]\u001b[0m\ntests/test_integration_advanced.py::TestAdvancedIntegration::test_high_volume_event_processing \u001b[32mPASSED\u001b[0m\u001b[33m [ 33%]\u001b[0m\ntests/test_integration_advanced.py::TestAdvancedIntegration::test_concurrent_health_score_queries \u001b[32mPASSED\u001b[0m\u001b[33m [..."
+    },
+    "Coverage Analysis": {
+      "success": true,
+      "output": "============================= test session starts ==============================\nplatform darwin -- Python 3.9.6, pytest-8.4.1, pluggy-1.6.0 -- /Library/Developer/CommandLineTools/usr/bin/python3\ncachedir: .pytest_cache\nrootdir: /Users/niuniu/ShopGraphHealthService\nconfigfile: pyproject.toml\nplugins: anyio-4.9.0, asyncio-1.1.0, cov-6.2.1\nasyncio: mode=auto, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollecting ... collected 52 items\n\ntests/test_basic.py::test_imports_work PASSED                            [  1%]\ntests/test_basic.py::test_event_types PASSED                             [  3%]\ntests/test_basic.py::test_health_calculation_config_defaults PASSED      [  5%]\ntests/test_basic.py::test_promotion_state_defaults PASSED                [  7%]\ntests/test_basic.py::test_service_initialization PASSED                  [  9%]\ntests/test_basic.py::test_service_basic_functionality PASSED             [ 11%]\ntests/test_health_calculation_engine.py::Te..."
+    },
+    "Performance Tests": {
+      "success": true,
+      "output": "Average response time: 5.67ms"
+    }
+  }
+}

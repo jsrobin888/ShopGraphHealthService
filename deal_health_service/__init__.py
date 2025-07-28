@@ -25,7 +25,7 @@ from .service import DealHealthService
 __all__ = [
     "DealHealthService",
     "AutomatedTestResult",
-    "CommunityTip", 
+    "CommunityTip",
     "CommunityVerification",
     "EventType",
     "HealthCalculationConfig",
@@ -33,4 +33,4 @@ __all__ = [
     "PromotionState",
     "ServiceConfig",
     "VerificationEvent",
-] 
+]
